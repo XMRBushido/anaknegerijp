@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0d0f13"/>
+      <stop offset="1" stop-color="#0a0b0e"/>
+    </linearGradient>
+    <radialGradient id="g1" cx="0.18" cy="0" r="0.75">
+      <stop offset="0" stop-color="#19e39a" stop-opacity="0.16"/>
+      <stop offset="1" stop-color="#19e39a" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="g2" cx="0.88" cy="0.05" r="0.6">
+      <stop offset="0" stop-color="#22d3ee" stop-opacity="0.12"/>
+      <stop offset="1" stop-color="#22d3ee" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1200" height="630" fill="#0d0f13"/>
+  
+  
+
+  <circle cx="88" cy="92" r="5" fill="#19e39a"/>
+  <circle cx="88" cy="92" r="12" fill="#19e39a" opacity="0.16"/>
+  <text x="112" y="99" font-family="DejaVu Sans, Helvetica, Arial" font-size="21" font-weight="bold"
+        fill="#19e39a" letter-spacing="3.4">ANALISIS INDEPENDEN</text>
+
+  <text x="88" y="268" font-family="DejaVu Sans, Helvetica, Arial" font-size="82" font-weight="bold"
+        fill="#f2f4f6" letter-spacing="-2">Analisis yang</text>
+  <text x="88" y="366" font-family="DejaVu Sans, Helvetica, Arial" font-size="82" font-weight="bold"
+        fill="#19e39a" letter-spacing="-2">bukan omong kosong.</text>
+
+  <text x="88" y="440" font-family="DejaVu Sans, Helvetica, Arial" font-size="27" fill="#9aa2ad">Teknologi · AI · Crypto · Geopolitik · Market global</text>
+
+  <line x1="88" y1="500" x2="1112" y2="500" stroke="#262c35" stroke-width="2"/>
+
+  <text x="88" y="556" font-family="DejaVu Sans, Helvetica, Arial" font-size="30" font-weight="bold"
+        fill="#f2f4f6" letter-spacing="0.5">ANAKNEGERI<tspan fill="#19e39a">JP</tspan></text>
+  <text x="1112" y="556" text-anchor="end" font-family="DejaVu Sans, Helvetica, Arial" font-size="26"
+        fill="#646d79">@XMRClaw</text>
+</svg>

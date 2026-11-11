@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://xmrbushido.github.io/anaknegerijp/sitemap.xml
