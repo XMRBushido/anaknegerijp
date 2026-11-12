@@ -470,8 +470,14 @@ strong { color: var(--c-fg); font-weight: 600; }
   color: var(--c-fg);
   text-decoration: none;
   overflow-wrap: anywhere;
+  transition: color var(--d-fast) var(--ease);
 }
-a.contact-val:hover { color: var(--c-accent-2); }
+a.contact-val:hover {
+  color: var(--c-accent-2);
+  text-decoration: underline;
+  text-decoration-color: var(--c-accent-32);
+  text-underline-offset: 0.2em;
+}
 
 /* ------------------------------------------------------------ note */
 .note {
