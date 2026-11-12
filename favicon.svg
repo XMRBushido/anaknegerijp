@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Anaknegeri JP">
-  <rect width="64" height="64" rx="14" fill="#0d0f13"/>
-  <rect x="0.75" y="0.75" width="62.5" height="62.5" rx="13.25" fill="none" stroke="#2a2f38" stroke-width="1.5"/>
-  <path d="M16 46 L32 18 L48 46" fill="none" stroke="#19e39a" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round"/>
-  <path d="M24 38 H40" fill="none" stroke="#22d3ee" stroke-width="5.5" stroke-linecap="round"/>
+  <rect width="64" height="64" rx="14" fill="#0A0C11"/>
+  <rect x="0.75" y="0.75" width="62.5" height="62.5" rx="13.25" fill="none" stroke="#232936" stroke-width="1.5"/>
+  <path d="M16 46 L32 18 L48 46" fill="none" stroke="#CBA978" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M24 38 H40" fill="none" stroke="#E4CD9F" stroke-width="5.5" stroke-linecap="round"/>
 </svg>
