@@ -332,7 +332,7 @@ strong { color: var(--c-fg); font-weight: 600; }
 /* ----------------------------------------------------------- cards */
 .card-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(15rem, 100%), 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(13.5rem, 100%), 1fr));
   gap: var(--s-4);
   margin-top: var(--s-10);
 }
