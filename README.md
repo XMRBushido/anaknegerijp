@@ -10,6 +10,7 @@ Website &amp; halaman legal **Anaknegeri JP** (@XMRClaw).
 | File | Isi |
 |---|---|
 | `index.html` | Beranda |
+| `skills.html` | Katalog Skills AI Agent (jual skill siap pasang) |
 | `terms.html` | Terms of Service |
 | `privacy.html` | Privacy Policy |
 | `404.html` | Halaman error |
