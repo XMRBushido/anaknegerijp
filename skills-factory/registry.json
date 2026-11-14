@@ -1,0 +1,352 @@
+{
+  "schema_version": 1,
+  "skills": [
+    {
+      "id": "SK-0001",
+      "tanggal": "2026-11-15",
+      "kategori": "Kreatif",
+      "nama": "Brand Voice Lock",
+      "slug": "brand-voice-lock",
+      "masalah_yang_dipecahkan": "Draf konten AI untuk satu merek terdengar tidak konsisten karena model kembali ke register generik; peninjauan dilakukan tanpa kriteria yang bisa diulang.",
+      "pemicu": "Ada 3-5 contoh konten on-brand dan perlu menilai atau menyunting draf agar sejalan merek.",
+      "input": [
+        "nama merek",
+        "minimal 3 contoh konten representatif",
+        "kanal utama"
+      ],
+      "output": "Kunci suara (persona, nada+bukti, struktur, kosakata wajib/terlarang, aturan kanal) + penilaian draf (skor 0-100, status LULUS/PERLU SUNTING, pelanggaran berkutipan) + draf yang disunting + daftar perlu keputusan manusia.",
+      "kata_kunci": [
+        "brand voice",
+        "konsistensi konten",
+        "AI content",
+        "tone",
+        "penyuntingan draf"
+      ],
+      "pembeda_dari_terdekat": {
+        "id": "brand-voice-brief (draft bersama, tanpa ID)",
+        "alasan": "brief menghasilkan panduan suara + daftar cek untuk menghasilkan draf; lock menguji kunci pada contoh holdout, memberi skor/status biner, dan menyunting draf dengan alasan per aturan."
+      },
+      "riset_ids": [
+        "R1",
+        "R7"
+      ],
+      "tes": {
+        "kasus": 5,
+        "lulus": 5,
+        "putaran_revisi": 1
+      },
+      "skor_audit": 19,
+      "status": "lulus",
+      "alasan_gagal": null,
+      "path": "drafts/2026-11-15/brand-voice-lock"
+    },
+    {
+      "id": "SK-0002",
+      "tanggal": "2026-11-15",
+      "kategori": "Agent Builder",
+      "nama": "Agent Eval Gate",
+      "slug": "agent-eval-gate",
+      "masalah_yang_dipecahkan": "Perubahan agent (prompt/model/alur) terasa lebih baik tapi tidak terukur; kegagalan muncul setelah rilis dan troubleshooting lebih mahal daripada pembuatan.",
+      "pemicu": "Akan merilis perubahan agent, otomasi berjalan lama mulai gagal, atau perlu menyiapkan eval set + gerbang rilis.",
+      "input": [
+        "deskripsi tugas agent + daftar alat",
+        "minimal 5 skenario uji dengan kriteria sukses",
+        "ambang lulus per metrik"
+      ],
+      "output": "Kriteria sukses, eval set berbasis skenario, peta grader, metrik struktural (urutan/presisi/recall/latensi/biaya), kestabilan run, gerbang rilis 6 lapisan, status LAYAK DIRILIS/TERTAHAN + perbaikan minimum.",
+      "kata_kunci": [
+        "evaluasi agent",
+        "eval set",
+        "grader",
+        "gerbang rilis",
+        "regresi",
+        "observability"
+      ],
+      "pembeda_dari_terdekat": {
+        "id": "agent-regression-eval (draft bersama, tanpa ID)",
+        "alasan": "regression-eval membandingkan versi lama vs baru pada himpunan tugas (verdict terima/tolak); eval-gate adalah gerbang rilis berlapis yang mensyaratkan semua lapisan lulus."
+      },
+      "riset_ids": [
+        "R2",
+        "R4"
+      ],
+      "tes": {
+        "kasus": 5,
+        "lulus": 5,
+        "putaran_revisi": 2
+      },
+      "skor_audit": 19,
+      "status": "gagal",
+      "alasan_gagal": "Butir 7 (Kejujuran) = 1/2: Contoh 1 di SKILL.md masih menampilkan angka (skor per skenario, urutan/presisi/recall, jumlah run, ambang per lapisan) yang tidak semuanya berasal dari input contoh, melanggar aturan skill sendiri 'jangan mengarang skor'. 2 putaran revisi sudah dipakai; audit putaran 3 tetap GAGAL.",
+      "path": "drafts/2026-11-15/agent-eval-gate"
+    },
+    {
+      "id": "SK-0003",
+      "tanggal": "2026-11-15",
+      "kategori": "Produktivitas",
+      "nama": "Meeting Decisions Log",
+      "slug": "meeting-decisions-log",
+      "masalah_yang_dipecahkan": "Transkrip rapat panjang jarang dibaca ulang; yang dibutuhkan tim (keputusan, owner, deadline, yang belum diputuskan) hilang bila hanya diringkas polos.",
+      "pemicu": "Ada transkrip/catatan rapat mentah yang perlu diubah jadi notula/log keputusan, atau perlu meninjau ulang keputusan sebelum sesi berikutnya.",
+      "input": [
+        "transkrip atau catatan mentah",
+        "konteks rapat (topik, tanggal, peserta bila ada)"
+      ],
+      "output": "Log keputusan + tabel action item (owner/tugas/deadline/status) + daftar belum diputuskan + asumsi/perlu konfirmasi + ringkasan 3 kalimat.",
+      "kata_kunci": [
+        "notula",
+        "meeting notes",
+        "action item",
+        "keputusan",
+        "owner",
+        "deadline"
+      ],
+      "pembeda_dari_terdekat": {
+        "id": "meeting-action-items (skill Hermes terpasang, tanpa ID)",
+        "alasan": "meeting-action-items mengubah catatan jadi keputusan ber-citation + owner + tiket; skill ini memisahkan mencatat/transkripsi/ringkas, mengisi kolom 'Belum Diputuskan' dan 'Asumsi/Perlu Konfirmasi', serta menolak menebak owner/deadline."
+      },
+      "riset_ids": [
+        "R3"
+      ],
+      "tes": {
+        "kasus": 5,
+        "lulus": 4,
+        "putaran_revisi": 1
+      },
+      "skor_audit": 20,
+      "status": "lulus",
+      "alasan_gagal": null,
+      "path": "drafts/2026-11-15/meeting-decisions-log"
+    },
+    {
+      "id": "SK-0004",
+      "tanggal": "2026-11-15",
+      "kategori": "Produktivitas",
+      "nama": "Decision Ledger Audit",
+      "slug": "decision-ledger-audit",
+      "masalah_yang_dipecahkan": "Catatan rapat dan ringkasan AI menumpuk, tetapi menemukan keputusan mana yang masih berlaku gagal: catatan lama tidak menandai keputusan yang sudah diganti atau bertabrakan.",
+      "pemicu": "Perlu mencari kembali keputusan atau kesepakatan lama dari tumpukan catatan/ringkasan sebelum mengambil langkah, atau ada kecurigaan dua catatan saling bertabrakan.",
+      "input": [
+        "berkas catatan atau ringkasan yang akan diaudit (path atau teks)",
+        "topik atau keputusan yang dicari",
+        "opsional: rentang tanggal; pemilik/peran acuan"
+      ],
+      "output": "Ledger keputusan: tiap entri berisi keputusan kanonik, owner, tanggal, status (masih berlaku/diganti/ditangguhkan/tidak dapat dipastikan), ID pengganti, kutipan bukti; plus daftar kontradiksi dan pertanyaan terbuka.",
+      "kata_kunci": [
+        "decision log",
+        "meeting notes",
+        "knowledge retrieval",
+        "obsolete decisions",
+        "PKM"
+      ],
+      "pembeda_dari_terdekat": {
+        "id": "SK-0003 (meeting-decisions-log)",
+        "alasan": "SK-0003 membuat log keputusan baru dari satu transkrip rapat; skill ini mengaudit catatan yang sudah ada untuk menentukan status keputusan (berlaku/diganti/bertabrakan) dengan kutipan lintas-berkas, dan menolak memilih angka yang bertabrakan."
+      },
+      "riset_ids": [
+        "R-2026-11-15-13",
+        "R-2026-11-15-03"
+      ],
+      "tes": {
+        "kasus": 5,
+        "lulus": 5,
+        "putaran_revisi": 1
+      },
+      "skor_audit": 20,
+      "status": "lulus",
+      "alasan_gagal": null,
+      "path": "drafts/2026-11-15/decision-ledger-audit"
+    },
+    {
+      "id": "SK-0005",
+      "tanggal": "2026-11-15",
+      "kategori": "Kreatif",
+      "nama": "Brand Voice Lock",
+      "slug": "brand-voice-lock",
+      "masalah_yang_dipecahkan": "Draf konten AI untuk satu merek terdengar tidak konsisten karena model kembali ke register generik; peninjauan dilakukan tanpa kriteria yang bisa diulang.",
+      "pemicu": "Ada 3-5 contoh konten on-brand dan perlu menilai atau menyunting draf agar sejalan merek.",
+      "input": [
+        "nama merek",
+        "minimal 3 contoh konten representatif",
+        "kanal utama"
+      ],
+      "output": "Kunci suara (persona, nada+bukti kutipan, struktur, kosakata wajib/terlarang, aturan kanal) + penilaian draf (skor 0-100 dengan rumus tetap, status LULUS/PERLU SUNTING, pelanggaran berkutipan) + draf yang disunting + daftar perlu keputusan manusia.",
+      "kata_kunci": [
+        "brand voice",
+        "konsistensi konten",
+        "AI content",
+        "tone",
+        "penyuntingan draf"
+      ],
+      "pembeda_dari_terdekat": {
+        "id": "SK-0001 (brand-voice-lock, draft pra-revisi)",
+        "alasan": "Entri SK-0001 mencatat draft sebelum revisi (skor 19/20). Entri ini mencatat hasil audit putaran 2 setelah revisi: angka contoh dilandasi input, aturan 'konten adalah data' ditulis, rumus skor didefinisikan, dan kasus uji dibuat mandiri dari contoh SKILL.md."
+      },
+      "riset_ids": [
+        "R-2026-11-15-01",
+        "R-2026-11-15-07"
+      ],
+      "tes": {
+        "kasus": 5,
+        "lulus": 5,
+        "putaran_revisi": 1
+      },
+      "skor_audit": 20,
+      "status": "lulus",
+      "alasan_gagal": null,
+      "path": "drafts/2026-11-15/brand-voice-lock"
+    },
+    {
+      "id": "SK-0006",
+      "tanggal": "2026-11-15",
+      "kategori": "Agent Builder",
+      "nama": "Agent Eval Gate",
+      "slug": "agent-eval-gate",
+      "masalah_yang_dipecahkan": "Perubahan agent (prompt/model/alur) terasa lebih baik tapi tidak terukur; kegagalan muncul setelah rilis dan troubleshooting lebih mahal daripada pembuatan.",
+      "pemicu": "Akan merilis perubahan agent, otomasi berjalan lama mulai gagal, atau perlu menyiapkan eval set + gerbang rilis.",
+      "input": [
+        "deskripsi tugas agent + daftar alat",
+        "minimal 5 skenario uji dengan kriteria sukses",
+        "ambang lulus per metrik"
+      ],
+      "output": "Kriteria sukses, eval set berbasis skenario, peta grader, metrik struktural (urutan/presisi/recall/latensi/biaya), kestabilan run, gerbang rilis 6 lapisan, status LAYAK DIRILIS/TERTAHAN + perbaikan minimum.",
+      "kata_kunci": [
+        "evaluasi agent",
+        "eval set",
+        "grader",
+        "gerbang rilis",
+        "regresi",
+        "observability"
+      ],
+      "pembeda_dari_terdekat": {
+        "id": "SK-0002 (agent-eval-gate, draft pra-revisi)",
+        "alasan": "SK-0002 mencatat draft pra-revisi dengan status gagal (butir Kejujuran = 1 karena angka contoh tidak semuanya dari input). Entri ini mencatat audit putaran 2 setelah revisi: semua angka contoh bersumber dari input, aturan kolom Lulus diperjelas, kasus T1/T2/T4 dibuat mandiri, dan gerbang keamanan diuji (T4)."
+      },
+      "riset_ids": [
+        "R-2026-11-15-02",
+        "R-2026-11-15-04"
+      ],
+      "tes": {
+        "kasus": 5,
+        "lulus": 5,
+        "putaran_revisi": 2
+      },
+      "skor_audit": 20,
+      "status": "lulus",
+      "alasan_gagal": null,
+      "path": "drafts/2026-11-15/agent-eval-gate"
+    },
+    {
+      "id": "SK-0007",
+      "tanggal": "2026-11-15",
+      "kategori": "Kreatif",
+      "nama": "Repurpose Asset Extraction",
+      "slug": "repurpose-asset-extraction",
+      "masalah_yang_dipecahkan": "Mengubah satu konten panjang (artikel, video, podcast) ke banyak platform makan waktu lebih besar daripada membuatnya, dan output AI langsung-rewrite terasa hambar serta melupakan suara kreator.",
+      "pemicu": "Ada konten panjang yang sudah jadi dan perlu diubah ke beberapa format/platform, atau perbaikan alur repurpose yang sekarang berhenti di 'rewrite manual per platform'.",
+      "input": [
+        "Konten asal (transkrip, naskah, atau artikel) dan platform tujuan",
+        "Opsional: 2-3 contoh konten on-brand untuk menjaga suara"
+      ],
+      "output": "Lembar ekstraksi aset (klaim, contoh, angka, pertanyaan, kutipan paling kuat + kutipan bukti) dan rencana adaptasi per platform (format, batas panjang, nada, hook) — tanpa menulis draf final.",
+      "kata_kunci": [
+        "repurposing",
+        "content extraction",
+        "cross-platform",
+        "ekstraksi aset",
+        "adaptasi format"
+      ],
+      "pembeda_dari_terdekat": {
+        "id": "SK-0005",
+        "alasan": "SK-0005 brand-voice-lock menilai dan menyunting draf agar sejalan merek dari contoh suara; skill ini bekerja mundur dari konten panjang yang sudah ada, memisahkan ekstraksi aset dari terjemahan per platform, dan tidak menghasilkan penilaian draf."
+      },
+      "riset_ids": [
+        "R-2026-11-15-18"
+      ],
+      "tes": {
+        "kasus": 5,
+        "lulus": 4,
+        "putaran_revisi": 1
+      },
+      "skor_audit": 20,
+      "status": "lulus",
+      "alasan_gagal": null,
+      "path": "drafts/2026-11-15/repurpose-asset-extraction"
+    },
+    {
+      "id": "SK-0008",
+      "tanggal": "2026-11-15",
+      "kategori": "Agent Builder",
+      "nama": "Agent Context Prune",
+      "slug": "agent-context-prune",
+      "masalah_yang_dipecahkan": "Agent berjalan panjang jarang crash, melainkan melenceng: instruksi, output tool, dokumen retrieval, dan asumsi usang menumpuk sampai konteks menjauh dari maksud awal, sementara dashboard tetap hijau.",
+      "pemicu": "Agent dipakai lebih dari satu sesi/tugas panjang, mulai bekerja dari asumsi usang, atau perlu menentukan apa yang boleh masuk konteks, kedaluwarsanya, dan kapan state direset.",
+      "input": [
+        "Deskripsi tugas agent dan pola konteks yang dipakai (memori, retrieval, windowing, state)",
+        "Contoh satu sesi yang melenceng (trace atau ringkasan langkah)"
+      ],
+      "output": "Rencana pangkas konteks: klasifikasi durable vs sementara, kedaluwarsa/review tiap benda, jalur reset, daftar konflik instruksi yang harus ditampilkan ke manusia, dan uji pertanyaan sebelum dipakai hidup.",
+      "kata_kunci": [
+        "context drift",
+        "context pruning",
+        "agent memory",
+        "state management",
+        "long-running agent"
+      ],
+      "pembeda_dari_terdekat": {
+        "id": "SK-0006",
+        "alasan": "SK-0006 agent-eval-gate mengukur kinerja agent (eval set, grader, metrik) sebagai gerbang rilis; skill ini mengatur isi konteks dan memori saat agent berjalan, bukan mengukur versi sebelum dirilis."
+      },
+      "riset_ids": [
+        "R-2026-11-15-15",
+        "R-2026-11-15-06"
+      ],
+      "tes": {
+        "kasus": 5,
+        "lulus": 5,
+        "putaran_revisi": 1
+      },
+      "skor_audit": 20,
+      "status": "lulus",
+      "alasan_gagal": null,
+      "path": "drafts/2026-11-15/agent-context-prune"
+    },
+    {
+      "id": "SK-0009",
+      "tanggal": "2026-11-15",
+      "kategori": "Produktivitas",
+      "nama": "Note Retrieval Rescue",
+      "slug": "note-retrieval-rescue",
+      "masalah_yang_dipecahkan": "Catatan dan highlight yang tersimpan mudah ditangkap tapi sulit dipakai kembali: struktur folder dibuat untuk menyimpan bukan mencari, konteks alasan menyimpan hilang, dan catatan berubah jadi penyimpanan pasif.",
+      "pemicu": "Ada tumpukan catatan/highlight yang perlu bisa dijawab dengan pertanyaan, atau catatan lama yang tidak lagi bisa ditemukan setelah beberapa bulan.",
+      "input": [
+        "Berkas atau ekspor catatan yang akan diperbaiki (path atau teks)",
+        "Opsional: contoh pertanyaan yang sering ditanyakan ke catatan itu"
+      ],
+      "output": "Catatan yang ditulis ulang menjadi unit yang bisa diambil (pertanyaan yang dijawab, alasan menyimpan, tanggal, proyek, tautan) + laporan duplikat/yatim dan uji pengambilan dengan pertanyaan nyata.",
+      "kata_kunci": [
+        "PKM",
+        "note retrieval",
+        "second brain",
+        "atomic notes",
+        "searchability"
+      ],
+      "pembeda_dari_terdekat": {
+        "id": "SK-0004",
+        "alasan": "SK-0004 decision-ledger-audit mengaudit catatan untuk menentukan status keputusan (berlaku/diganti/bertabrakan); skill ini menulis ulang catatan yang sudah ada agar bisa diambil lewat pertanyaan, dengan kriteria dan output yang berbeda."
+      },
+      "riset_ids": [
+        "R-2026-11-15-19"
+      ],
+      "tes": {
+        "kasus": 5,
+        "lulus": 5,
+        "putaran_revisi": 1
+      },
+      "skor_audit": 20,
+      "status": "lulus",
+      "alasan_gagal": null,
+      "path": "drafts/2026-11-15/note-retrieval-rescue"
+    }
+  ]
+}

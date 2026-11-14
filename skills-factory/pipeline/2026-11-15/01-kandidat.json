@@ -1,0 +1,72 @@
+{
+  "tanggal": "2026-11-15",
+  "run": "SF-1 cron 1e4a04f0b97e (06:00 JST)",
+  "terpilih": [
+    {
+      "kategori": "Kreatif",
+      "nama": "Repurpose Asset Extraction",
+      "slug": "repurpose-asset-extraction",
+      "masalah": "Mengubah satu konten panjang (artikel, video, podcast) ke banyak platform makan waktu lebih besar daripada membuatnya, dan output AI langsung-rewrite terasa hambar serta melupakan suara kreator.",
+      "pemicu": "Ada konten panjang yang sudah jadi dan perlu diubah ke beberapa format/platform, atau perbaikan alur repurpose yang sekarang berhenti di 'rewrite manual per platform'.",
+      "input": [
+        "Konten asal (transkrip, naskah, atau artikel) dan platform tujuan",
+        "Opsional: 2-3 contoh konten on-brand untuk menjaga suara"
+      ],
+      "output": "Lembar ekstraksi aset (klaim, contoh, angka, pertanyaan, kutipan paling kuat + kutipan bukti) dan rencana adaptasi per platform (format, batas panjang, nada, hook) — tanpa menulis draf final.",
+      "kata_kunci": ["repurposing", "content extraction", "cross-platform", "ekstraksi aset", "adaptasi format"],
+      "pembeda": {
+        "id": "SK-0005",
+        "alasan": "SK-0005 brand-voice-lock menilai dan menyunting draf agar sejalan merek dari contoh suara; skill ini bekerja mundur dari konten panjang yang sudah ada, memisahkan ekstraksi aset dari terjemahan per platform, dan tidak menghasilkan penilaian draf."
+      },
+      "riset_ids": ["R-2026-11-15-18"],
+      "cadangan": [
+        {"nama": "Cross-Platform Format Spec Sheet", "slug": "cross-platform-format-spec"},
+        {"nama": "AI Visual Tool Fit Check", "slug": "ai-visual-tool-fit-check"}
+      ]
+    },
+    {
+      "kategori": "Agent Builder",
+      "nama": "Agent Context Prune",
+      "slug": "agent-context-prune",
+      "masalah": "Agent berjalan panjang jarang crash, melainkan melenceng: instruksi, output tool, dokumen retrieval, dan asumsi usang menumpuk sampai konteks menjauh dari maksud awal, sementara dashboard tetap hijau.",
+      "pemicu": "Agent dipakai lebih dari satu sesi/tugas panjang, mulai bekerja dari asumsi usang, atau perlu menentukan apa yang boleh masuk konteks, kedaluwarsanya, dan kapan state direset.",
+      "input": [
+        "Deskripsi tugas agent dan pola konteks yang dipakai (memori, retrieval, windowing, state)",
+        "Contoh satu sesi yang melenceng (trace atau ringkasan langkah)"
+      ],
+      "output": "Rencana pangkas konteks: klasifikasi durable vs sementara, kedaluwarsa/review tiap benda, jalur reset, daftar konflik instruksi yang harus ditampilkan ke manusia, dan uji pertanyaan sebelum dipakai hidup.",
+      "kata_kunci": ["context drift", "context pruning", "agent memory", "state management", "long-running agent"],
+      "pembeda": {
+        "id": "SK-0006",
+        "alasan": "SK-0006 agent-eval-gate mengukur kinerja agent (eval set, grader, metrik) sebagai gerbang rilis; skill ini mengatur isi konteks dan memori saat agent berjalan, bukan mengukur versi sebelum dirilis."
+      },
+      "riset_ids": ["R-2026-11-15-15", "R-2026-11-15-06"],
+      "cadangan": [
+        {"nama": "HITL Approval Gates", "slug": "hitl-approval-gates"},
+        {"nama": "Tool Call Reliability", "slug": "tool-call-reliability"}
+      ]
+    },
+    {
+      "kategori": "Produktivitas",
+      "nama": "Note Retrieval Rescue",
+      "slug": "note-retrieval-rescue",
+      "masalah": "Catatan dan highlight yang tersimpan mudah ditangkap tapi sulit dipakai kembali: struktur folder dibuat untuk menyimpan bukan mencari, konteks alasan menyimpan hilang, dan catatan berubah jadi penyimpanan pasif.",
+      "pemicu": "Ada tumpukan catatan/highlight yang perlu bisa dijawab dengan pertanyaan, atau catatan lama yang tidak lagi bisa ditemukan setelah beberapa bulan.",
+      "input": [
+        "Berkas atau ekspor catatan yang akan diperbaiki (path atau teks)",
+        "Opsional: contoh pertanyaan yang sering ditanyakan ke catatan itu"
+      ],
+      "output": "Catatan yang ditulis ulang menjadi unit yang bisa diambil (pertanyaan yang dijawab, alasan menyimpan, tanggal, proyek, tautan) + laporan duplikat/yatim dan uji pengambilan dengan pertanyaan nyata.",
+      "kata_kunci": ["PKM", "note retrieval", "second brain", "atomic notes", "searchability"],
+      "pembeda": {
+        "id": "SK-0004",
+        "alasan": "SK-0004 decision-ledger-audit mengaudit catatan untuk menentukan status keputusan (berlaku/diganti/bertabrakan); skill ini menulis ulang catatan yang sudah ada agar bisa diambil lewat pertanyaan, dengan kriteria dan output yang berbeda."
+      },
+      "riset_ids": ["R-2026-11-15-19"],
+      "cadangan": [
+        {"nama": "Stale Note Review", "slug": "stale-note-review"},
+        {"nama": "Doc to Brief", "slug": "doc-to-brief"}
+      ]
+    }
+  ]
+}
