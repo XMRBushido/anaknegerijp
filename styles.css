@@ -826,6 +826,13 @@ tbody tr:hover { background: var(--c-accent-8); }
 .faq details[open] summary::after { content: "\2013"; }
 .faq details p { margin: var(--s-3) 0 0; color: var(--c-muted); font-size: var(--t-sm); }
 
+.section-lead {
+  margin: 0 0 var(--s-8);
+  max-width: 54ch;
+  color: var(--c-muted);
+  font-size: var(--t-base);
+}
+
 @media print {
   body::before { display: none; }
   body { background: #fff; color: #111; }
