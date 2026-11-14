@@ -1,0 +1,65 @@
+{
+  "tanggal": "2026-11-15",
+  "terpilih": [
+    {
+      "kategori": "Kreatif",
+      "nama": "Brand Voice Lock",
+      "slug": "brand-voice-lock",
+      "masalah": "Draf konten AI mudah dibuat, tetapi sulit menjaga agar terdengar seperti merek yang sama di setiap kanal; tanpa bahan spesifik, model kembali ke register hambar.",
+      "pemicu": "Akan membuat atau menyunting draf konten (postingan, caption, newsletter) dengan AI dan perlu menjaga konsistensi suara merek.",
+      "input": [
+        "Dokumen suara merek atau 2-3 contoh konten lama yang disetujui",
+        "Draf konten yang akan diperiksa",
+        "Opsional: daftar kata/frasa yang dilarang"
+      ],
+      "output": "Instruksi generasi ringkas (persona satu baris, nada, daftar kata yang boleh/dilarang, 2-3 contoh posting nyata) plus laporan audit draf baris-per-baris dengan alasan dan saran perbaikan.",
+      "kata_kunci": ["brand voice", "konsistensi konten", "AI copywriting", "tone of voice", "content audit"],
+      "pembeda": {"id": null, "alasan": "Registry masih kosong, jadi tidak ada skill terdahulu; skill ini mengubah dokumen suara menjadi instruksi generasi plus audit, bukan sekadar membuat draf."},
+      "riset_ids": ["R-2026-11-15-01"],
+      "cadangan": [
+        {"nama": "AI Visual Tool Fit Check", "slug": "ai-visual-tool-fit-check"},
+        {"nama": "Content Repurpose Matrix", "slug": "content-repurpose-matrix"}
+      ]
+    },
+    {
+      "kategori": "Agent Builder",
+      "nama": "Agent Eval Gate",
+      "slug": "agent-eval-gate",
+      "masalah": "Agent sering dianggap beres setelah demonstrasi berhasil; kriteria sukses, eval set, grader, dan gerbang rilis belum distandardisasi, sehingga regresi lolos tanpa terdeteksi.",
+      "pemicu": "Sebelum merilis atau memperbarui agent, perlu memastikan kinerjanya terukur pada skenario nyata, bukan parafrasa pertanyaan yang sama.",
+      "input": [
+        "Deskripsi tugas agent dan daftar tool yang dipakai",
+        "Skenario pengguna nyata: intent yang didukung, jalur tool, permintaan di luar topik yang harus ditolak, kasus berantakan",
+        "Batas latensi dan biaya yang ditoleransi"
+      ],
+      "output": "Eval set terstruktur, pilihan grader per skenario, tabel metrik (urutan aksi, presisi, recall, latensi, biaya), dan keputusan gerbang rilis lulus/gagal beserta buktinya.",
+      "kata_kunci": ["agent evaluation", "eval set", "grader", "release gate", "regression testing"],
+      "pembeda": {"id": null, "alasan": "Registry masih kosong; fokusnya mengukur kinerja agent terhadap skenario dan gerbang rilis, bukan pertahanan injeksi atau manajemen state/memori."},
+      "riset_ids": ["R-2026-11-15-02"],
+      "cadangan": [
+        {"nama": "HITL Approval Gates", "slug": "hitl-approval-gates"},
+        {"nama": "Tool Call Reliability", "slug": "tool-call-reliability"}
+      ]
+    },
+    {
+      "kategori": "Produktivitas",
+      "nama": "Decision Ledger Audit",
+      "slug": "decision-ledger-audit",
+      "masalah": "Catatan dan ringkasan AI menumpuk, tapi menemukan keputusan mana yang masih berlaku gagal; catatan lama tidak menandai keputusan yang sudah diganti atau bertabrakan.",
+      "pemicu": "Perlu mencari kembali keputusan atau kesepakatan lama dari tumpukan catatan rapat/ringkasan AI sebelum mengambil langkah.",
+      "input": [
+        "Berkas catatan atau ringkasan yang akan diaudit (path atau teks)",
+        "Topik atau keputusan yang dicari",
+        "Opsional: rentang tanggal"
+      ],
+      "output": "Ledger keputusan: tiap entri berisi keputusan, owner, tanggal, status (masih berlaku/ditangguhkan/diganti oleh entri mana), kutipan bukti, dan daftar kontradiksi atau pertanyaan terbuka.",
+      "kata_kunci": ["decision log", "meeting notes", "knowledge retrieval", "obsolete decisions", "PKM"],
+      "pembeda": {"id": null, "alasan": "Registry masih kosong; skill ini mengaudit catatan yang sudah ada untuk menemukan keputusan yang masih berlaku, bukan membuat ringkasan baru dari rapat."},
+      "riset_ids": ["R-2026-11-15-13"],
+      "cadangan": [
+        {"nama": "Meeting Decisions Log", "slug": "meeting-decisions-log"},
+        {"nama": "Knowledge Intake Triage", "slug": "knowledge-intake-triage"}
+      ]
+    }
+  ]
+}
