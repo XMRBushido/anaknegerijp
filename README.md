@@ -1,6 +1,6 @@
 # anaknegerijp
 
-Website &amp; halaman legal **Anaknegeri JP** (@XMRLabs).
+Website &amp; halaman legal **Anaknegeri JP** (@XMRLABS).
 
 - Live: https://xmrbushido.github.io/anaknegerijp/
 - Deploy: push ke `main` → GitHub Pages build otomatis dari root.
