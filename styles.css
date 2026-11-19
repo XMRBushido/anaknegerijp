@@ -182,8 +182,8 @@ strong { color: var(--c-fg); font-weight: 600; }
 
 .brand {
   display: inline-flex;
-  align-items: baseline;
-  gap: 0.12em;
+  align-items: center;
+  gap: 0.45em;
   font-family: var(--font-display);
   font-size: var(--t-xl);
   font-weight: 600;
@@ -195,6 +195,13 @@ strong { color: var(--c-fg); font-weight: 600; }
 .brand em {
   font-style: normal;
   color: var(--c-accent);
+}
+.brand-icon {
+  width: 1.2em;
+  height: 1.2em;
+  border-radius: 24%;
+  flex: none;
+  display: block;
 }
 
 .site-nav {
