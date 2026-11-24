@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Security Audit untuk Workstation AI Agent — XMRLABS x @Anaknegeri JP</title>
+<meta name="description" content="Audit read-only terhadap workstation AI agent: listener jaringan, izin file, cara secret di-resolve, dan batas isolasi antar-agent. Temuan dengan bukti yang bisa diulang, lengkap dengan yang terbukti benar.">
+<meta name="theme-color" content="#0A0C11">
+
+<link rel="canonical" href="https://xmrbushido.github.io/anaknegerijp/security-audit.html">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="XMRLABS x @Anaknegeri JP">
+<meta property="og:title" content="Security Audit untuk Workstation AI Agent">
+<meta property="og:description" content="Pemeriksaan read-only, temuan dengan bukti yang bisa direproduksi, dan batas yang dinyatakan terang. Bukan pentest.">
+<meta property="og:url" content="https://xmrbushido.github.io/anaknegerijp/security-audit.html">
+<meta property="og:image" content="https://xmrbushido.github.io/anaknegerijp/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="id_ID">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Security Audit untuk Workstation AI Agent">
+<meta name="twitter:description" content="Temuan dengan bukti yang bisa direproduksi. Yang benar juga dilaporkan. Bukan pentest.">
+<meta name="twitter:image" content="https://xmrbushido.github.io/anaknegerijp/og-image.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&amp;family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<style>
+  .sev {
+    display: inline-block;
+    font-size: var(--t-xs);
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    padding: 1px 8px;
+    border-radius: var(--r-full);
+    border: 1px solid var(--c-line);
+    background: var(--c-surface-2);
+    color: var(--c-fg);
+    white-space: nowrap;
+  }
+  .sev--p2 { border-color: var(--c-accent-32); color: var(--c-accent-2); }
+  .sev--p3 { color: var(--c-muted); }
+  .audit-note { margin-top: var(--s-6); }
+  .audit-table td:first-child { font-variant-numeric: tabular-nums; white-space: nowrap; }
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main">Lompat ke konten utama</a>
+
+<div class="wrap">
+  <header class="site-header">
+    <a class="brand" href="./" aria-label="Anaknegeri JP — beranda"><img class="brand-icon" src="app-icon.png" alt="" aria-hidden="true"><span>ANAKNEGERI<em>JP</em></span></a>
+    <nav class="site-nav" aria-label="Navigasi utama">
+      <a href="./">Beranda</a>
+      <a href="skills.html">Skills</a>
+      <a href="layanan.html">Layanan</a>
+      <a href="security-audit.html" aria-current="page">Security Audit</a>
+      <a href="terms.html">Terms of Service</a>
+      <a href="privacy.html">Privacy Policy</a>
+    </nav>
+  </header>
+
+  <main id="main" tabindex="-1">
+
+    <section class="hero">
+      <p class="eyebrow">Jasa · Security Audit</p>
+      <h1>Audit keamanan yang <em>jujur tentang batasnya.</em></h1>
+      <p class="lead">Pemeriksaan read-only terhadap workstation AI agent: apa yang terekspos ke jaringan, apa yang melindungi file sensitif, dan bagaimana secret di-resolve. Hasilnya berupa temuan dengan bukti yang bisa diulang — bukan tebakan.</p>
+      <div class="actions">
+        <a class="btn btn--primary" href="#contoh">Lihat contoh laporan</a>
+        <a class="btn btn--ghost" href="mailto:anaknegerijp.service.me@gmail.com?subject=Pesan%20Jasa%3A%20Security%20Audit">Konsultasi</a>
+      </div>
+      <ul class="trust-list">
+        <li>Temuan bisa direproduksi</li>
+        <li>Yang benar juga dilaporkan</li>
+        <li>Batas ditulis terang</li>
+      </ul>
+    </section>
+
+    <section class="section" id="cakupan" aria-labelledby="cakupan-title">
+      <h2 class="section-title" id="cakupan-title">Scope</h2>
+      <p class="section-lead">Fokus pada permukaan eksposur host — bukan pada kode aplikasi, bukan pada exploits.</p>
+      <div class="skill-grid">
+        <article class="card skill-card">
+          <span class="skill-tag">Yang diperiksa</span>
+          <h3>Permukaan jaringan</h3>
+          <p>Socket yang listen, alamat bind (loopback vs semua interface), dan apakah service yang tidak diperlukan masih aktif.</p>
+        </article>
+        <article class="card skill-card">
+          <span class="skill-tag">Yang diperiksa</span>
+          <h3>Izin file &amp; direktori</h3>
+          <p>Mode file dan direktori yang menyimpan konfigurasi, riwayat transaksi, dan material kunci.</p>
+        </article>
+        <article class="card skill-card">
+          <span class="skill-tag">Yang diperiksa</span>
+          <h3>Resolusi secret</h3>
+          <p>Berapa banyak mekanisme berbeda yang dipakai untuk satu konsep yang sama. Nilai tidak ditampilkan — yang diklasifikasi adalah bentuknya.</p>
+        </article>
+        <article class="card skill-card">
+          <span class="skill-tag">Yang diperiksa</span>
+          <h3>Batas antar-agent</h3>
+          <p>Apakah beberapa agent berjalan sebagai satu user, dan apa konsekuensinya bagi kunci yang mereka pegang.</p>
+        </article>
+        <article class="card skill-card">
+          <span class="skill-tag">Yang diperiksa</span>
+          <h3>Inventaris listener</h3>
+          <p>Apakah ada baseline port yang disimpan, supaya listener baru bisa dikenali sebagai hal yang tidak wajar.</p>
+        </article>
+        <article class="card skill-card">
+          <span class="skill-tag">Yang tidak dilakukan</span>
+          <h3>Bukan pentest</h3>
+          <p>Tanpa exploit, tanpa CVE scan, tanpa code review, tanpa sertifikasi kepatuhan. Tidak ada serangan yang dilancarkan.</p>
+        </article>
+      </div>
+      <p class="note audit-note"><strong>Catatan penting:</strong> tidak adanya temuan bukan bukti tidak adanya masalah. Keyakinan dinyatakan per temuan — <strong>HIGH</strong> untuk apa yang diamati langsung di host, <strong>MEDIUM</strong> untuk risiko struktural yang disimpulkan dari arsitektur.</p>
+    </section>
+
+    <section class="section" id="contoh" aria-labelledby="contoh-title">
+      <h2 class="section-title" id="contoh-title">Contoh temuan dari audit nyata</h2>
+      <p class="section-lead">Lima temuan dari satu pemeriksaan sekitar 20 menit pada workstation AI agent (WSL2, satu user, tiga agent + tooling wallet). ID, prioritas, dan jumlah temuan tidak diubah dari laporan aslinya.</p>
+      <div class="table-wrap">
+        <table class="audit-table">
+          <thead>
+            <tr><th>ID</th><th>Prioritas</th><th>Temuan</th><th>Rekomendasi singkat</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>F-01</td><td><span class="sev sev--p2">P2</span></td><td>Print service (CUPS/IPP) listen di semua interface, padahal host tidak memerlukan pencetakan.</td><td>Nonaktifkan atau bind ke loopback; cek ulang setelah perubahan.</td></tr>
+            <tr><td>F-02</td><td><span class="sev sev--p2">P2</span></td><td>Direktori tooling wallet dapat didaftar dan dibaca group/other — sudah diperbaiki saat audit, izin induk 775 ke 750.</td><td>Kencangkan izin direktori induk; jaga direktori kunci tetap 700.</td></tr>
+            <tr><td>F-03</td><td><span class="sev sev--p3">P3</span></td><td>Satu konsep secret di-resolve lewat tiga mekanisme berbeda. Tidak ada eksposur hari ini, tapi sumber tiap kunci tidak tercatat — rotasi jadi titik buta.</td><td>Satukan bentuk SecretRef dan tambah startup check yang gagal saat nilai berbentuk literal.</td></tr>
+            <tr><td>F-04</td><td><span class="sev sev--p3">P3 · struktural</span></td><td>Tidak ada batas isolasi antar-agent pada satu user — properti arsitektur, bukan salah konfigurasi.</td><td>Batasi saldo yang dilindungi kunci di host itu ke nominal yang masih bisa ditanggung.</td></tr>
+            <tr><td>F-05</td><td><span class="sev sev--p3">P3</span></td><td>Tidak ada inventaris service yang listen, sehingga listener baru tidak bisa dikenali sebagai hal yang baru.</td><td>Simpan baseline yang dibersihkan di sebelah catatan deploy, lalu diff tiap audit.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="note audit-note"><strong>Skala prioritas:</strong> P0 kompromi aktif / dana terancam · P1 jalur pelanggaran yang mungkin · P2 eksposur yang butuh prasyarat · P3 kebersihan dan hardening. Urutan perbaikan pada contoh ini: <strong>F-01 → F-02 → F-05</strong>. F-03 dan F-04 bersifat struktural dan masuk runbook; startup check dari F-03 layak ditulis lebih awal.</p>
+    </section>
+
+    <section class="section" id="benar" aria-labelledby="benar-title">
+      <h2 class="section-title" id="benar-title">Yang terbukti benar</h2>
+      <p class="section-lead">Laporan yang hanya berisi temuan tidak bisa dinilai. Ini bagian yang harus ada supaya pembaca bisa mempercayai sisanya.</p>
+      <ul class="rule-list">
+        <li><strong>Tidak ada kunci API mentah</strong> di konfigurasi gateway. OpenRouter memakai SecretRef terstruktur; satu-satunya nilai berbentuk teks adalah referensi provider, bukan material kunci. File kunci berizin 600.</li>
+        <li>Semua service agent yang diamati bind ke <strong>loopback saja</strong>, bukan ke semua interface.</li>
+        <li>File konfigurasi gateway berizin <strong>600</strong>, hanya pemilik.</li>
+        <li>Direktori kunci berizin <strong>700</strong>; pembaca kunci tidak pernah mencetak atau mengirim kunci, dan menolak kunci yang rusak.</li>
+        <li>Bacaan wallet dicek silang terhadap <strong>dua RPC independen</strong>; jawaban yang bertentangan dinyatakan tidak dipercaya, bukan dirata-rata.</li>
+        <li>Ada regression test yang memaksa respons RPC kosong dan memastikan respons itu dianggap <strong>error, bukan saldo nol</strong>.</li>
+      </ul>
+    </section>
+
+    <section class="section" id="deliverable" aria-labelledby="deliverable-title">
+      <h2 class="section-title" id="deliverable-title">Deliverable</h2>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>Item</th><th>Termasuk</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Pernyataan scope dan metode</td><td>Ya</td></tr>
+            <tr><td>Temuan lengkap dengan bukti, dampak, dan rekomendasi</td><td>Ya</td></tr>
+            <tr><td>Prioritas dan keyakinan per temuan</td><td>Ya</td></tr>
+            <tr><td>Bagian “yang terbukti benar”</td><td>Ya</td></tr>
+            <tr><td>Daftar tiga perbaikan yang paling prioritas</td><td>Ya</td></tr>
+            <tr><td>Uji ulang setelah perbaikan</td><td>Opsional — add-on</td></tr>
+            <tr><td>Scan eksternal / pentest</td><td><strong>Tidak termasuk</strong> — scope terpisah</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="note audit-note"><strong>Turnaround:</strong> satu hari kerja untuk host seukuran contoh di atas. <strong>Tidak dijanjikan:</strong> eksploitasi, pemulihan kredensial, atau jaminan keamanan.</p>
+    </section>
+
+    <section class="section" id="pesan" aria-labelledby="pesan-title">
+      <h2 class="section-title" id="pesan-title">Pesan jasa</h2>
+      <div class="bundle">
+        <div>
+          <p class="eyebrow" style="margin-bottom:0">Konsultasi</p>
+          <h3 id="pesan-title">Mau pemeriksaan seperti ini?</h3>
+          <p>Kirim konteks host dan pertanyaanmu lewat email. Detail ruang lingkup, harga, dan pembayaran dibicarakan sebelum pekerjaan dimulai.</p>
+        </div>
+        <a class="btn btn--primary" href="mailto:anaknegerijp.service.me@gmail.com?subject=Pesan%20Jasa%3A%20Security%20Audit">Hubungi Kami</a>
+      </div>
+      <p class="note audit-note">Layanan dikerjakan manual. Harga ditentukan per permintaan — lihat <a href="terms.html">Terms of Service</a> untuk pemesanan, pembayaran, dan refund.</p>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <nav class="footer-links" aria-label="Navigasi footer">
+      <a href="./">Beranda</a>
+      <a href="skills.html">Skills</a>
+      <a href="layanan.html">Layanan</a>
+      <a href="security-audit.html">Security Audit</a>
+      <a href="terms.html">Terms of Service</a>
+      <a href="privacy.html">Privacy Policy</a>
+      <a href="mailto:anaknegerijp.service.me@gmail.com">Kontak</a>
+    </nav>
+    <p>&copy; 2026 XMRLABS x @Anaknegeri JP</p>
+    <p class="disclaimer">Laporan audit adalah hasil pemeriksaan pada waktu tertentu. Tidak ada jaminan keamanan, dan tidak ada klaim sebagai penetration test atau sertifikasi.</p>
+  </footer>
+</div>
+</body>
+</html>
