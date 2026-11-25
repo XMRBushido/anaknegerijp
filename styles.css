@@ -79,6 +79,10 @@
 /* ------------------------------------------------------ primitives */
 *, *::before, *::after { box-sizing: border-box; }
 
+/* The UA's [hidden] rule loses to any author display rule (e.g. .card),
+   so make the attribute authoritative for the skills filter. */
+[hidden] { display: none !important; }
+
 html {
   -webkit-text-size-adjust: 100%;
   scroll-behavior: smooth;
@@ -254,6 +258,7 @@ strong { color: var(--c-fg); font-weight: 600; }
   color: var(--c-accent);
   margin-bottom: var(--s-6);
 }
+.eyebrow--flush { margin-bottom: 0; }
 .eyebrow::before {
   content: "";
   width: 26px;
